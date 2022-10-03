@@ -1,0 +1,32 @@
+--- ETSI_Release/LC3plus_src/src/fixed_point/LC3plus.pc.in.orig	2022-05-04 10:53:39.000000000 +0200
++++ ETSI_Release/LC3plus_src/src/fixed_point/LC3plus.pc.in	2022-10-02 21:34:56.977614430 +0200
+@@ -1,12 +1,12 @@
+ prefix=@CMAKE_INSTALL_PREFIX@
+ exec_prefix=@CMAKE_INSTALL_PREFIX@
+-libdir=${exec_prefix}/@CMAKE_INSTALL_LIBDIR@
+-includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@
++libdir=@CMAKE_INSTALL_FULL_LIBDIR@
++includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@
+ 
+ Name: @PROJECT_NAME@
+ Description: @PROJECT_DESCRIPTION@
+ Version: @PROJECT_VERSION@
+ 
+ Requires:
+-Libs: -L${libdir}/LC3plus -lLC3plus
++Libs: -L${libdir} -lLC3plus
+ Cflags: -I${includedir} -DENABLE_HR_MODE
+--- ETSI_Release/LC3plus_src/src/fixed_point/CMakeLists.txt.orig	2022-05-04 10:53:39.000000000 +0200
++++ ETSI_Release/LC3plus_src/src/fixed_point/CMakeLists.txt	2022-10-02 21:35:31.147429316 +0200
+@@ -104,9 +104,9 @@ target_link_libraries(LC3plus m)
+ include(GNUInstallDirs)
+ 
+ install(TARGETS LC3plus
+-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/LC3plus
++    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/LC3plus)
+ 
+ configure_file(LC3plus.pc.in LC3plus.pc @ONLY)
+ 
+-install(FILES ${CMAKE_BINARY_DIR}/LC3plus.pc DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
++install(FILES ${CMAKE_BINARY_DIR}/LC3plus.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
